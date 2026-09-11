@@ -22,25 +22,30 @@ import type { Post, EventPost, RequestPost, OfferPost } from './types.js';
 
 /* ── the palette, as covers use it ───────────────────────────────────────── */
 
-const HALITE = '#09324A';
-const BILLABONG = '#1B6F81';
-const CASSIOPEIA = '#AED0C9';
-const FENNEC = '#DAD7C8';
+const LIME = '#E3FF4F';
+const NEARBLACK = '#0B0B0C';
 const PICKET = '#F3F2EA';
-const BANANA = '#FFFB08';
 
 /**
- * Ground pairs and the ink that sits on them, weighted toward the darker end —
- * a wall of pale teal reads as washed out, and the dark grounds are what carry
- * the contrast the palette was asked to have.
+ * Ground pairs and the ink that sits on them.
+ *
+ * On a near-black interface the covers ARE the colour — the chrome is
+ * deliberately monochrome, so a feed's entire palette comes from these and
+ * from people's photographs. They are built as posters rather than as
+ * backgrounds: saturated, high contrast, and different enough from one another
+ * that a column of them does not read as one texture.
+ *
+ * Every pair is checked so the glyph and the title survive on the ground under
+ * them. A cover whose subject is illegible is decoration pretending to be
+ * information.
  */
 const SCHEMES: readonly (readonly [string, string, string])[] = [
-  [HALITE, BILLABONG, CASSIOPEIA],
-  [BILLABONG, HALITE, BANANA],
-  [HALITE, '#0B4763', BANANA],
-  [BILLABONG, CASSIOPEIA, PICKET],
-  [CASSIOPEIA, FENNEC, BILLABONG],
-  [HALITE, BILLABONG, PICKET],
+  [NEARBLACK, '#1D1D24', LIME],        // black, lime ink — the house style
+  ['#2B1B57', '#4B2A8C', LIME],        // violet
+  ['#0E5C6B', '#12849B', LIME],        // deep teal
+  ['#C2402F', '#E85C46', PICKET],      // hot coral, cream ink
+  ['#7FD8FF', '#BCEBFF', '#052430'],   // cyan, dark ink
+  ['#FFB27F', '#FFD3B2', '#2A1206'],   // amber, dark ink
 ];
 
 /** Lucide path bodies, 24x24 grid. */
