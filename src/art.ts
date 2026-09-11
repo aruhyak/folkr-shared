@@ -23,7 +23,7 @@ function art(body: string): string {
 
 /* The MP213 palette, so the artwork belongs to the app rather than sitting on
    top of it: Halite #16102B, Billabong #4B2A8C, Cassiopeia #7FD8FF,
-   Fennec Fox #3A3350, Picket Fence #F3F2EA, Banana King #E3FF4F. */
+   #3A3350 muted, #F3F2EA cream, #FFF3C4 lamplight. */
 
 /** A pub quiz: warm room, low light, tables. */
 export const ART_QUIZ = art(`
@@ -31,10 +31,10 @@ export const ART_QUIZ = art(`
     <stop offset="0%" stop-color="#16102B"/><stop offset="100%" stop-color="#4B2A8C"/>
   </linearGradient></defs>
   <rect width="800" height="600" fill="url(#a)"/>
-  <circle cx="180" cy="130" r="46" fill="#E3FF4F" opacity="0.9"/>
-  <circle cx="180" cy="130" r="78" fill="#E3FF4F" opacity="0.15"/>
-  <circle cx="420" cy="106" r="34" fill="#E3FF4F" opacity="0.75"/>
-  <circle cx="640" cy="140" r="40" fill="#E3FF4F" opacity="0.82"/>
+  <circle cx="180" cy="130" r="46" fill="#FFF3C4" opacity="0.9"/>
+  <circle cx="180" cy="130" r="78" fill="#FFF3C4" opacity="0.15"/>
+  <circle cx="420" cy="106" r="34" fill="#FFF3C4" opacity="0.75"/>
+  <circle cx="640" cy="140" r="40" fill="#FFF3C4" opacity="0.82"/>
   <rect y="392" width="800" height="208" fill="#F3F2EA" opacity="0.1"/>
   <g fill="#F3F2EA" opacity="0.9">
     <rect x="96"  y="392" width="200" height="16" rx="8"/>
@@ -58,7 +58,7 @@ export const ART_MARKET = art(`
     <stop offset="0%" stop-color="#7FD8FF"/><stop offset="100%" stop-color="#F3F2EA"/>
   </linearGradient></defs>
   <rect width="800" height="600" fill="url(#b)"/>
-  <circle cx="660" cy="122" r="52" fill="#E3FF4F" opacity="0.9"/>
+  <circle cx="660" cy="122" r="52" fill="#FFF3C4" opacity="0.9"/>
   <path d="M0 402 L140 366 L280 396 L420 358 L560 392 L700 362 L800 388 L800 600 L0 600 Z"
         fill="#4B2A8C" opacity="0.16"/>
   <rect y="430" width="800" height="170" fill="#3A3350"/>
@@ -77,7 +77,7 @@ export const ART_MARKET = art(`
     <rect x="458" y="336" width="8" height="132" fill="#16102B" opacity="0.55"/>
     <rect x="664" y="336" width="8" height="132" fill="#16102B" opacity="0.55"/>
     <rect x="466" y="392" width="200" height="76" rx="6" fill="#F3F2EA" opacity="0.92"/>
-    <g fill="#E3FF4F" opacity="0.9">
+    <g fill="#FFF3C4" opacity="0.9">
       <circle cx="506" cy="422" r="16"/><circle cx="546" cy="422" r="16"/>
       <circle cx="586" cy="422" r="16"/><circle cx="626" cy="422" r="16"/>
     </g>
@@ -90,8 +90,8 @@ export const ART_OPENMIC = art(`
     <stop offset="0%" stop-color="#4B2A8C"/><stop offset="100%" stop-color="#16102B"/>
   </radialGradient></defs>
   <rect width="800" height="600" fill="url(#c)"/>
-  <path d="M400 60 L232 600 H568 Z" fill="#E3FF4F" opacity="0.16"/>
-  <circle cx="400" cy="72" r="26" fill="#E3FF4F" opacity="0.9"/>
+  <path d="M400 60 L232 600 H568 Z" fill="#FFF3C4" opacity="0.16"/>
+  <circle cx="400" cy="72" r="26" fill="#FFF3C4" opacity="0.9"/>
   <ellipse cx="400" cy="536" rx="230" ry="42" fill="#16102B" opacity="0.5"/>
   <rect x="392" y="286" width="9" height="228" rx="4" fill="#F3F2EA" opacity="0.92"/>
   <path d="M396 286 q0 -34 34 -34" stroke="#F3F2EA" stroke-width="9" fill="none" opacity="0.92"/>
@@ -109,7 +109,7 @@ export const ART_POTTERY = art(`
     <stop offset="0%" stop-color="#F3F2EA"/><stop offset="100%" stop-color="#3A3350"/>
   </linearGradient></defs>
   <rect width="800" height="600" fill="url(#d)"/>
-  <circle cx="150" cy="126" r="58" fill="#E3FF4F" opacity="0.35"/>
+  <circle cx="150" cy="126" r="58" fill="#FFF3C4" opacity="0.35"/>
   <rect y="452" width="800" height="148" fill="#4B2A8C" opacity="0.14"/>
   <ellipse cx="400" cy="470" rx="182" ry="42" fill="#16102B" opacity="0.16"/>
   <rect x="386" y="392" width="28" height="88" rx="10" fill="#16102B" opacity="0.5"/>

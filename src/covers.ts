@@ -22,7 +22,7 @@ import type { Post, EventPost, RequestPost, OfferPost } from './types.js';
 
 /* ── the palette, as covers use it ───────────────────────────────────────── */
 
-const LIME = '#E3FF4F';
+const WHITE = '#FFFFFF';
 const NEARBLACK = '#0B0B0C';
 const PICKET = '#F3F2EA';
 
@@ -40,12 +40,12 @@ const PICKET = '#F3F2EA';
  * information.
  */
 const SCHEMES: readonly (readonly [string, string, string])[] = [
-  [NEARBLACK, '#1D1D24', LIME],        // black, lime ink — the house style
-  ['#2B1B57', '#4B2A8C', LIME],        // violet
-  ['#0E5C6B', '#12849B', LIME],        // deep teal
-  ['#C2402F', '#E85C46', PICKET],      // hot coral, cream ink
-  ['#7FD8FF', '#BCEBFF', '#052430'],   // cyan, dark ink
-  ['#FFB27F', '#FFD3B2', '#2A1206'],   // amber, dark ink
+  ['#1A1030', '#33195E', WHITE],       // violet-black — the house style
+  ['#4B23C9', '#6C3BFF', WHITE],       // brand violet
+  ['#0E5C6B', '#12849B', WHITE],       // deep teal
+  ['#B8342A', '#E05141', WHITE],       // coral
+  ['#1D4ED8', '#3B82F6', WHITE],       // blue
+  ['#B4531C', '#E07A2E', WHITE],       // burnt amber
 ];
 
 /** Lucide path bodies, 24x24 grid. */
