@@ -344,7 +344,10 @@ const pastPosts: Post[] = [
   },
 ];
 
-export const ALL_POSTS: Post[] = [...events, ...requests, ...offers, ...pastPosts];
+export const ALL_POSTS: Post[] = [...events, ...requests, ...offers, ...pastPosts]
+  // Everything in this file is invented. Marked once, here, rather than on
+  // two dozen objects that would each have to remember.
+  .map((p) => ({ ...p, demo: true })) as Post[];
 
 /**
  * Stand-in for `events_nearby(lat, lng, radius, from)`.

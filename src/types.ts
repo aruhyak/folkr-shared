@@ -31,6 +31,16 @@ export interface Author {
 }
 
 export interface BasePost {
+  /**
+   * Seeded content, not something a neighbour wrote.
+   *
+   * A trial feed is mostly invented posts, and on a map they look exactly like
+   * real activity — which quietly misleads the person judging whether the
+   * neighbourhood is alive. Marked so it can say what it is.
+   *
+   * PHASE 3 deletes the seed and this flag with it.
+   */
+  demo?: boolean;
   id: string;
   kind: PostKind;
   title: string;
