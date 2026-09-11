@@ -33,7 +33,7 @@
 
 import type { Post, RequestPost } from './types.js';
 
-const KEY = 'le.replies';
+const KEY = 'folkr.replies';
 
 export interface Message {
   id: string;

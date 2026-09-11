@@ -18,7 +18,7 @@
 import type { Post, RequestPost } from './types.js';
 import { threadsOn } from './replies.js';
 
-const SEEN_KEY = 'le.seen';
+const SEEN_KEY = 'folkr.seen';
 
 export type NoticeKind = 'reply' | 'chosen' | 'passed';
 

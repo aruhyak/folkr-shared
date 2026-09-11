@@ -1,5 +1,5 @@
 {
-  "name": "@le/shared",
+  "name": "@folkr/shared",
   "version": "0.1.0",
   "private": false,
   "description": "Types, geo helpers and API client shared by every Local Events fragment",

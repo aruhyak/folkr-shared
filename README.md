@@ -1,4 +1,4 @@
-# @le/shared
+# @folkr/shared
 
 Types, geo helpers and mock data shared by every Local Events fragment.
 
@@ -49,7 +49,7 @@ Installed by git tag, not from a registry:
 
 ```json
 "dependencies": {
-  "@le/shared": "github:aruhyak/localevents-shared#v0.1.0"
+  "@folkr/shared": "github:aruhyak/localevents-shared#v0.1.0"
 }
 ```
 

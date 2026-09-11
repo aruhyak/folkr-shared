@@ -12,7 +12,7 @@
 
 import type { Post } from './types.js';
 
-const KEY = 'le.saves';
+const KEY = 'folkr.saves';
 
 function storage(): Storage | null {
   try {

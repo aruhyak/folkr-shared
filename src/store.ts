@@ -17,7 +17,7 @@
 
 import type { Post } from './types.js';
 
-const KEY = 'le.posts';
+const KEY = 'folkr.posts';
 
 /**
  * A photo is a data URL here, so posts are far larger than typical stored
