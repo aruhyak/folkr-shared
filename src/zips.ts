@@ -134,6 +134,70 @@ export async function lookupZip(input: string): Promise<ZipPlace | null> {
 }
 
 /** Nearest known place to a coordinate — used to label a GPS fix. */
+/** Kilometres between two points, for deciding whether a guess is plausible. */
+function kmBetween(aLat: number, aLng: number, bLat: number, bLng: number): number {
+  const R = 6371;
+  const dLat = ((bLat - aLat) * Math.PI) / 180;
+  const dLng = ((bLng - aLng) * Math.PI) / 180;
+  const h = Math.sin(dLat / 2) ** 2
+    + Math.cos((aLat * Math.PI) / 180) * Math.cos((bLat * Math.PI) / 180) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+}
+
+/**
+ * What is this place called?
+ *
+ * ── WHY NOT JUST nearestPlace ─────────────────────────────────────────────
+ * The local table holds 51 towns, all within one county. Asking it to name a
+ * point in Texas returns a Pennsylvania town — confidently, with no error.
+ * Somebody sharing their location would see the map centre correctly on their
+ * street and the header claim they were four states away, which reads as a
+ * broken app rather than a missing feature.
+ *
+ * So: ask OpenStreetMap's reverse geocoder, which knows everywhere. Fall back
+ * to the local table ONLY when the answer it gives is close enough to be
+ * plausible, and otherwise say nothing rather than something wrong.
+ *
+ * Nominatim's policy allows light use and asks for no more than one request a
+ * second. This runs when somebody taps "use my location", which is not a
+ * volume problem. At real scale it needs a paid geocoder or a self-hosted
+ * instance — the same note that applies to the map tiles.
+ */
+export async function placeNameFor(lat: number, lng: number): Promise<string> {
+  try {
+    // BigDataCloud's client endpoint: no key, CORS-open, and meant for exactly
+    // this. Nominatim was the obvious first choice and is the wrong one — it
+    // returns 403 without an identifying User-Agent, and its policy explicitly
+    // discourages application traffic on the public instance.
+    const res = await fetch(
+      `https://api.bigdatacloud.net/data/reverse-geocode-client`
+      + `?latitude=${lat}&longitude=${lng}&localityLanguage=en`,
+      { signal: AbortSignal.timeout(6000) },
+    );
+    if (res.ok) {
+      const d = (await res.json()) as Record<string, string>;
+      /* locality before city, deliberately.
+         For a point in Downingtown, `city` comes back as "Philadelphia" — the
+         metro area, forty minutes away and not where anybody would say they
+         live. `locality` is the township or neighbourhood, which is what a
+         person means by where they are. */
+      const name = d.locality || d.city || d.principalSubdivision;
+      if (name) return name;
+    }
+  } catch {
+    /* offline, blocked, or too slow — fall through */
+  }
+
+  // The local table, but only where its answer could be true. Forty kilometres
+  // is about the distance at which a town name stops describing where somebody
+  // is.
+  const near = nearestPlace(lat, lng);
+  if (kmBetween(lat, lng, near.lat, near.lng) <= 40) return near.label;
+
+  // Better to say nothing than to name the wrong town.
+  return 'Your area';
+}
+
 export function nearestPlace(lat: number, lng: number): ZipPlace {
   let best = ZIPS[0]!;
   let bestD = Number.POSITIVE_INFINITY;
