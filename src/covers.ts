@@ -23,29 +23,33 @@ import type { Post, EventPost, RequestPost, OfferPost } from './types.js';
 /* ── the palette, as covers use it ───────────────────────────────────────── */
 
 const WHITE = '#FFFFFF';
-const NEARBLACK = '#0B0B0C';
-const PICKET = '#F3F2EA';
 
 /**
  * Ground pairs and the ink that sits on them.
  *
- * On a near-black interface the covers ARE the colour — the chrome is
- * deliberately monochrome, so a feed's entire palette comes from these and
- * from people's photographs. They are built as posters rather than as
- * backgrounds: saturated, high contrast, and different enough from one another
- * that a column of them does not read as one texture.
+ * NEARLY MONOCHROME, on purpose. These were six saturated posters — violet,
+ * teal, coral, blue, amber — on the argument that the covers ARE the colour
+ * because the chrome is monochrome. That argument only holds while the chrome
+ * actually is: with the interface carrying one warm accent, six more colours
+ * underneath it meant a feed opened on five competing hues before you reached
+ * a word of content, and the accent stopped standing out because everything
+ * did. A cover is a placeholder for a photograph nobody uploaded; it should
+ * not be the loudest thing on the screen.
+ *
+ * So the grounds step through the ink family, and exactly one of the five is
+ * the accent orange. The variety comes from the GLYPH, which is the part that
+ * carries meaning — the same trade every listing app makes.
  *
  * Every pair is checked so the glyph and the title survive on the ground under
  * them. A cover whose subject is illegible is decoration pretending to be
  * information.
  */
 const SCHEMES: readonly (readonly [string, string, string])[] = [
-  ['#1A1030', '#33195E', WHITE],       // violet-black — the house style
-  ['#4B23C9', '#6C3BFF', WHITE],       // brand violet
-  ['#0E5C6B', '#12849B', WHITE],       // deep teal
-  ['#B8342A', '#E05141', WHITE],       // coral
-  ['#1D4ED8', '#3B82F6', WHITE],       // blue
-  ['#B4531C', '#E07A2E', WHITE],       // burnt amber
+  ['#1B0E35', '#32215C', WHITE],       // violet-black — the house style
+  ['#13111C', '#26222F', WHITE],       // near-neutral
+  ['#241436', '#3C2757', WHITE],       // violet, one step up
+  ['#8A2708', '#CF3F1C', WHITE],       // the accent, one cover in five
+  ['#0F1520', '#212B3A', WHITE],       // the coolest step, still not blue
 ];
 
 /** Lucide path bodies, 24x24 grid. */
