@@ -71,6 +71,18 @@ const venue = (id: string, displayName: string, verified = true): Author => ({
   id, displayName, kind: 'business', verified, idVerified: false,
 });
 
+/* INVENTED businesses, and they must stay invented.
+   These were real local ones — a brewery, a market, a coffee shop, a pottery
+   studio, all of them findable in Downingtown. Demo data is not neutral: the
+   app showed them as VERIFIED venues posting their own events, which asserts
+   an endorsement none of them gave, and it appeared in the sign-in hero,
+   which is marketing.
+
+   Public places are a different thing and are fine — Kerr Park, Struble
+   Trail, Marsh Creek are parks and trails, not trademarks, and they are what
+   makes this read as a real neighbourhood instead of Lorem Ipsum. The rule is
+   about businesses, not about place names. */
+
 const A = {
   // Deliberately spread across all four states, so the feed shows every
   // combination rather than only the easy ones. Roughly what a real
@@ -86,10 +98,10 @@ const A = {
   ig: person('u8', 'Ignacio F.'),                    // neither
   nadia: person('u9', 'Nadia B.', true, true),       // both
   marta: person('u10', 'Marta K.', true),            // ID only
-  brew: venue('b1', 'Victory Brewing Co.'),
-  market: venue('b2', 'Downingtown Farmers Market'),
-  cafe: venue('b3', 'Bright Side Coffee'),
-  studio: venue('b4', 'Brandywine Pottery', false),
+  brew: venue('b1', 'Ninepin Brewing Co.'),
+  market: venue('b2', 'Foxhill Farmers Market'),
+  cafe: venue('b3', 'Kettle & Crumb'),
+  studio: venue('b4', 'Clayfield Pottery', false),
 };
 
 /* ── events ─────────────────────────────────────────────────────────────── */
@@ -107,7 +119,7 @@ const events: EventPost[] = [
     id: 'e2', kind: 'event', status: 'published',
     title: 'Tuesday quiz night',
     description: 'Six rounds, teams up to six. $2 a head, winner takes the pot. Kitchen open till 9.',
-    ...near(-0.4, 0.6), neighbourhood: 'Downingtown', venueName: 'Victory Brewing Co.',
+    ...near(-0.4, 0.6), neighbourhood: 'Downingtown', venueName: 'Ninepin Brewing Co.',
     author: A.brew, createdAt: daysFromNow(-30),
     imageUrl: ART_QUIZ, startsAt: nextWeekdayAt('TU', 19, 30), category: 'community', rsvpCount: 24,
     rrule: 'FREQ=WEEKLY;BYDAY=TU',
@@ -133,7 +145,7 @@ const events: EventPost[] = [
     id: 'e5', kind: 'event', status: 'published',
     title: 'Open mic — sign up from 7',
     description: 'Eight slots, ten minutes each. Piano and two mics provided. No cover.',
-    ...near(1.4, 3.2), neighbourhood: 'Exton', venueName: 'Bright Side Coffee',
+    ...near(1.4, 3.2), neighbourhood: 'Exton', venueName: 'Kettle & Crumb',
     author: A.cafe, createdAt: daysFromNow(-14),
     imageUrl: ART_OPENMIC, startsAt: nextWeekdayAt('TH', 19), category: 'music', rsvpCount: 12,
     rrule: 'FREQ=WEEKLY;BYDAY=TH',
@@ -151,7 +163,7 @@ const events: EventPost[] = [
     id: 'e7', kind: 'event', status: 'published',
     title: 'Beginners pottery — two places left',
     description: 'Three hours on the wheel, clay and firing included. Aprons provided, wear old clothes.',
-    ...near(-2.2, 4.8), neighbourhood: 'West Chester', venueName: 'Brandywine Pottery',
+    ...near(-2.2, 4.8), neighbourhood: 'West Chester', venueName: 'Clayfield Pottery',
     author: A.studio, createdAt: daysFromNow(-6),
     imageUrl: ART_POTTERY, startsAt: daysFromNowAt(5, 18, 30), category: 'class', rsvpCount: 6,
     price: 45, ticketUrl: 'https://example.com/pottery',
