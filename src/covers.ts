@@ -48,7 +48,7 @@ const SCHEMES: readonly (readonly [string, string, string])[] = [
   ['#1B0E35', '#32215C', WHITE],       // violet-black — the house style
   ['#13111C', '#26222F', WHITE],       // near-neutral
   ['#241436', '#3C2757', WHITE],       // violet, one step up
-  ['#8A2708', '#CF3F1C', WHITE],       // the accent, one cover in five
+  ['#8A2708', '#E24A1B', WHITE],       // the accent, one cover in five
   ['#0F1520', '#212B3A', WHITE],       // the coolest step, still not blue
 ];
 
