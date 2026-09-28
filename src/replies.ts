@@ -60,6 +60,11 @@ export interface Message {
 
   /** Likewise for the phone badge, captured when the message was written. */
   phoneVerified?: boolean;
+
+  /* On the MESSAGE, not the thread. A conversation on a post has the helper on
+     one side and the post's author on the other, so one avatar per thread can
+     only ever dress half the bubbles. */
+  avatarUrl?: string;
 }
 
 /** Kept as an alias: this was called Reply before threads existed. */
@@ -73,6 +78,8 @@ export interface Thread {
   helperVerified: boolean;
   /** And had they confirmed a phone number? */
   helperPhoneVerified: boolean;
+  /** Their Google picture, if they have one. */
+  helperAvatar?: string;
   messages: Message[];
   last: Message;
   /** Anything here the viewer has not written and has not seen. */
@@ -134,6 +141,7 @@ function toThread(postId: string, helperId: string, messages: Message[]): Thread
     // The helper's name comes from the message that opened the thread — the
     // poster's replies carry the poster's name, not theirs.
     helperName: first.displayName,
+    helperAvatar: first.avatarUrl,
     helperVerified: first.idVerified === true,
     helperPhoneVerified: first.phoneVerified === true,
     messages,
