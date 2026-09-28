@@ -80,10 +80,23 @@ export interface Thread {
   helperPhoneVerified: boolean;
   /** Their Google picture, if they have one. */
   helperAvatar?: string;
+  /** When they were last doing something in the app. See presenceOf(). */
+  helperLastSeen?: string;
   messages: Message[];
   last: Message;
-  /** Anything here the viewer has not written and has not seen. */
-  unreadFor: (viewerId: string, since: number) => boolean;
+  /**
+   * Anything here the viewer has not written and has not seen.
+   *
+   * OPTIONAL, because a Thread can arrive two ways and only one of them can
+   * carry a function: built locally by threadFor(), or parsed from JSON the
+   * server sent. The type promised it unconditionally, which made every
+   * server-built thread a lie the compiler could not see — the same mistake
+   * that left `last` missing and blanked the post page.
+   *
+   * Nothing calls it today. It stays declared so the local path keeps its
+   * meaning, and optional so the server path is honest.
+   */
+  unreadFor?: (viewerId: string, since: number) => boolean;
 }
 
 function storage(): Storage | null {

@@ -82,7 +82,7 @@ export function formatWhen(iso: string, now = new Date()): string {
 }
 
 function timeOf(d: Date): string {
-  return d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+  return d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })
     .replace(':00', '')
     .toLowerCase()
     .replace(' ', '');
@@ -114,7 +114,7 @@ export function formatRange(fromIso: string, toIso: string): string {
  */
 export function formatDailyRun(startsIso: string, endsIso: string | undefined, until: number): string {
   const t = (d: Date) =>
-    d.toLocaleTimeString(undefined, { hour: 'numeric', minute: d.getMinutes() ? '2-digit' : undefined })
+    d.toLocaleTimeString(undefined, { hour: 'numeric', minute: d.getMinutes() ? '2-digit' : undefined, hour12: true })
       .replace(' ', '\u2009');
   const from = new Date(startsIso);
   const hours = endsIso ? `${t(from)}–${t(new Date(endsIso))}` : t(from);
@@ -149,6 +149,7 @@ export function formatWeekly(rrule: string | undefined, startsIso: string): stri
   const time = d.toLocaleTimeString(undefined, {
     hour: 'numeric',
     minute: d.getMinutes() ? '2-digit' : undefined,
+    hour12: true,
   });
   // "Tuesdays", or "Mondays & Thursdays" for a rule with two days.
   const label = days.length === 1

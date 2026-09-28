@@ -10,3 +10,4 @@ export * from './replies.js';
 export * from './notices.js';
 export * from './zips.js';
 export * from './geocode.js';
+export * from './presence.js';
