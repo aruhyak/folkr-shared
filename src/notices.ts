@@ -16,6 +16,7 @@
  */
 
 import type { Post, RequestPost } from './types.js';
+import { isPast } from './types.js';
 import { threadsOn } from './replies.js';
 
 const SEEN_KEY = 'folkr.seen';
@@ -129,24 +130,39 @@ export function noticesFor(viewerId: string, posts: readonly Post[]): Notice[] {
 
          It is shown with the last message either way; only the wording and the
          unread flag differ, because your own words are never news to you. */
-      const last = theirs ?? thread.last;
-      if (last) {
+      /* The preview is the LAST thing said, whoever said it.
+         It used to be the other person's newest message, which is a different
+         thing whenever your reply came after theirs: the card then showed an
+         older message under a title naming them, so the headline and the text
+         beneath it described two different moments. A conversation list has
+         one job — say what was said last.
+
+         Who wrote it still decides the WORDING, and unread still keys off
+         their message, because your own words are never news to you. */
+      const newest = thread.last ?? thread.messages[thread.messages.length - 1];
+      if (newest) {
+        /* Nothing on a finished post is unread.
+           A post that has ended cannot be acted on — you cannot offer, claim
+           or be chosen — so a dot demanding attention is asking for something
+           that is no longer possible. The conversation stays; the nagging
+           goes. */
+        const over = isPast(post);
         out.push({
           id: `msg:${thread.postId}:${thread.helperId}`,
           kind: 'reply',
           postId: r.id,
           postTitle: r.title,
-          actorName: last.displayName,
-          message: last.message,
-          at: last.createdAt,
+          actorName: newest.displayName,
+          message: newest.message,
+          at: newest.createdAt,
           // Your own message is never unread. Only somebody else's can be.
-          unread: !!theirs && Date.parse(last.createdAt) > seen,
-          // Whether the last word was theirs, so the page can say "you offered
+          unread: !over && !!theirs && Date.parse(theirs.createdAt) > seen,
+          // Whether the last word was yours, so the page can say "you offered
           // to help" rather than pretending somebody replied.
-          awaitingReply: !theirs,
+          awaitingReply: newest.authorId === viewerId,
           helperId: thread.helperId,
-          verified: last.idVerified === true,
-          phoneVerified: last.phoneVerified === true,
+          verified: newest.idVerified === true,
+          phoneVerified: newest.phoneVerified === true,
           onYourPost: isOwner,
         });
       }
@@ -162,7 +178,7 @@ export function noticesFor(viewerId: string, posts: readonly Post[]): Notice[] {
           postTitle: r.title,
           actorName: r.author.displayName,
           at: thread.last.createdAt,
-          unread: chosen && Date.parse(thread.last.createdAt) > seen,
+          unread: chosen && !isPast(post) && Date.parse(thread.last.createdAt) > seen,
           helperId: thread.helperId,
           verified: r.author.idVerified === true,
           phoneVerified: r.author.phoneVerified === true,
