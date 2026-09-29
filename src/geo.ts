@@ -81,6 +81,19 @@ export function formatWhen(iso: string, now = new Date()): string {
   return then.toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
 }
 
+/**
+ * A wall clock, for a moment that is not a post.
+ *
+ * formatWhen() describes a POST's lifecycle and answers "ended" for anything
+ * in the past — which is right on a listing and nonsense on a chat message,
+ * where it stamped every bubble with "ended" instead of a time.
+ */
+export function formatClock(iso: string): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '';
+  return d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+}
+
 function timeOf(d: Date): string {
   return d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })
     .replace(':00', '')
