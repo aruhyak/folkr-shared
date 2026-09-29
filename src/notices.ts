@@ -36,6 +36,29 @@ export interface Notice {
   unread: boolean;
   /** Which conversation this belongs to, so tapping opens the right one. */
   helperId: string;
+  /**
+   * The OTHER person in this conversation — whoever you are not.
+   *
+   * Separate from actorName, which is whoever spoke last and is therefore
+   * sometimes you. A row is identified by the person you are talking to, and
+   * it has to keep saying so on the turns where you were the last to write;
+   * an avatar drawn from actorName showed your own face on half the list.
+   *
+   * Sent by whoever builds the notice, because only they can see both sides.
+   * The list used to reconstruct it from local demo data, which could not
+   * work at all once the posts came from a server.
+   */
+  otherName?: string;
+  otherAvatar?: string;
+  /**
+   * When they were last around, NOT a presence label.
+   *
+   * The timestamp travels and the reading is taken at draw time — a stored
+   * "online" is wrong by the time it arrives, and the list and the
+   * conversation screen would then disagree about the same person. See
+   * presenceOf().
+   */
+  otherLastSeen?: string;
   /** Was the person who wrote this ID-verified at the time? */
   verified: boolean;
   /** And had they confirmed a phone number? Separate claim, separate badge. */
@@ -164,6 +187,12 @@ export function noticesFor(viewerId: string, posts: readonly Post[]): Notice[] {
           verified: newest.idVerified === true,
           phoneVerified: newest.phoneVerified === true,
           onYourPost: isOwner,
+          /* On your own post the other person is whoever wrote in; on
+             somebody else's it is the person whose post it is. */
+          ...(isOwner
+            ? { otherName: thread.helperName, otherAvatar: thread.helperAvatar,
+                otherLastSeen: thread.helperLastSeen }
+            : { otherName: r.author.displayName, otherAvatar: r.author.avatarUrl }),
         });
       }
 
@@ -183,6 +212,10 @@ export function noticesFor(viewerId: string, posts: readonly Post[]): Notice[] {
           verified: r.author.idVerified === true,
           phoneVerified: r.author.phoneVerified === true,
           onYourPost: false,
+          // These only ever arrive on somebody else's post, so the other
+          // party is the poster — the person who did the choosing.
+          otherName: r.author.displayName,
+          otherAvatar: r.author.avatarUrl,
         });
       }
     }
